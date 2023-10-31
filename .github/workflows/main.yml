@@ -22,7 +22,7 @@ jobs:
     - name: Configure Git
       run: |
         git config --global user.email "harismehar3@gmail.com"
-        git config --global user.name "harismehar5"
+        git config --global user.name "Haris Rasheed"
       shell: bash
 
     - name: Add New Repository Remote
