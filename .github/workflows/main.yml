@@ -1,0 +1,38 @@
+name: Clone and Push Repository
+
+on:
+  push:
+    branches:
+      - main  # You can change this to your branch name
+
+jobs:
+  clone-and-push:
+    runs-on: windows-latest
+
+    steps:
+    - name: Checkout Code
+      uses: actions/checkout@v2
+
+    - name: Clone Repository
+      run: |
+        git clone https://github.com/WebAMM/email-otp-verification.git
+        cd email-otp-verification
+      shell: cmd
+
+    - name: Configure Git
+      run: |
+        git config --global user.email "youremail@example.com"
+        git config --global user.name "Your Name"
+      shell: bash
+
+    - name: Push to New Repository
+      run: |
+        git remote add new-repo https://github.com/harismehar5/email-otp-verification-clonning.git
+        git push new-repo --mirror
+      shell: bash
+
+    - name: Clean Up
+      run: |
+        cd ..
+        rm -rf email-otp-verification
+      shell: bash
