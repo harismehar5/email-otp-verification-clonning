@@ -1,23 +1,21 @@
-name: Clone and Push Repository
+name: Clone Repository
 
 on:
-  push:
-    branches:
-      - main  # You can change this to your branch name
+  workflow_dispatch: {}
 
 jobs:
-  clone-and-push:
-    runs-on: windows-latest
+  clone-repo:
+    runs-on: ubuntu-latest
 
     steps:
     - name: Checkout Code
       uses: actions/checkout@v2
 
-    - name: Clone Repository
+    - name: Clone External Repository
       run: |
         git clone https://github.com/WebAMM/email-otp-verification.git
         cd email-otp-verification
-      shell: cmd
+      shell: bash
 
     - name: Configure Git
       run: |
@@ -25,21 +23,8 @@ jobs:
         git config --global user.name "Haris Rasheed"
       shell: bash
 
-    - name: Add New Repository Remote
-      run: |
-        git remote add new-repo https://github.com/harismehar5/email-otp-verification-clonning.git
-      shell: bash
-
     - name: Push to New Repository
       run: |
-        git remote set-url --push new-repo "https://github.com/harismehar5/email-otp-verification-clonning.git"
+        git remote add new-repo https://github.com/harismehar5/email-otp-verification-clonning.git
         git push new-repo --mirror
-      env:
-        PAT_TOKEN: ${{ secrets.PAT_TOKEN }}
-      shell: bash
-
-    - name: Clean Up
-      run: |
-        cd ..
-        rm -rf email-otp-verification
       shell: bash
